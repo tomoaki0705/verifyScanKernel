@@ -19,6 +19,7 @@ SET(TEST_NAME sampleTest)
 find_package(CUDA REQUIRED)
 
 # build TARGET_NAME from source code
-cuda_cxx_test(${TEST_NAME} main.cpp)
-target_link_libraries(${TEST_NAME} ${CUDA_LIBRARIES})
-target_include_directories(${TEST_NAME}   PUBLIC ${THIRD_PARTY_DIR}/include)
+cuda_add_executable(${TEST_NAME} main.cpp kernel.cu)
+target_link_libraries(${TEST_NAME} gtest ${CMAKE_THREAD_LIBS_INIT}  ${CUDA_LIBRARIES})
+set_property(TARGET ${TEST_NAME} APPEND PROPERTY INCLUDE_DIRECTORIES ${GTEST_INCLUDE_DIRS} ${THIRD_PARTY_DIR}/include)
+add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME} "--gtest_break_on_failure")

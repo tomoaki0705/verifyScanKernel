@@ -2,8 +2,8 @@
 #include <gtest/gtest.h>
 #include <cuda_runtime.h>
 #include <cstring>
-#include <stdint.h>
 #include <cmath>
+#include "types.h"
 
 #define CUDA_SAFE_CALL(func) \
 do { \
@@ -23,14 +23,6 @@ uint32_t srcHeight = 2;
 uint32_t devStride = 128;
 uint32_t devHeight = 128;
 
-
-struct _mySize
-{
-    uint32_t width;
-    uint32_t height;
-};
-
-typedef struct _mySize mySize;
 
 uint32_t scanRowsWrapperDevice(float *d_src, uint32_t srcStride, float *d_dst, uint32_t dstStride, mySize roi);
 
